@@ -36,7 +36,8 @@ const Post = ( { post, setCurrentId }) => {
                 <Typography variant='body2'>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button color='primary' size='small' onClick={() => dispatch(likePost(post._id))}><ThumbUpAltIcon fontSize='small'></ThumbUpAltIcon>Like {post.likeCount}</Button>
+                {/* &nbsp; has been added for space  */}
+                <Button color='primary' size='small' onClick={() => dispatch(likePost(post._id))}><ThumbUpAltIcon fontSize='small'></ThumbUpAltIcon> &nbsp; Like &nbsp;{post.likeCount}</Button>
                 <Button color='primary' size='small' onClick={() => dispatch(deletePost(post._id))}><DeleteIcon fontSize='small'></DeleteIcon>Delete</Button>
             </CardActions>
         </Card>

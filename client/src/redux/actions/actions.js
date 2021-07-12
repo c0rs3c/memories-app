@@ -47,7 +47,8 @@ export const updatePost = (postData, id) => async (dispatch) => {
 
 export const deletePost = (id) => async(dispatch) => {
     try {
-        const { data } = await api.deletePost(id)
+        // const { data } = await api.deletePost(id)
+        api.deletePost(id)
         console.log('DELETE POST ACTION')
         dispatch({
             type: actionType.DELETE_POST,

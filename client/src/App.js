@@ -6,6 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getPosts } from './redux/actions/actions';
+import useStyles from './styles';
 
 function App() {
   const dispatch = useDispatch()
@@ -15,12 +16,13 @@ function App() {
   },[dispatch])
   
   const [currentId, setCurrentId] = useState(0)
+  const classes = useStyles()
 
   return (
     <Container>
       <NavBar />
       <Container>
-        <Grid container justifyContent='space-between'>
+        <Grid container justifyContent='space-between' className={classes.gridContainer}>
           <Grid item xs={12} sm={7}>
             <Posts setCurrentId={setCurrentId}/>
           </Grid>
