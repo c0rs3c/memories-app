@@ -1,37 +1,23 @@
 import Container from '@material-ui/core/Container'
-import { Grid } from '@material-ui/core';
-import Posts from './components/Posts/Posts';
-import Form from './components/Form/Form';
 import NavBar from './components/NavBar/NavBar';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getPosts } from './redux/actions/actions';
-import useStyles from './styles';
+import Home from './pages/Home/Home';
+// import useStyles from './styles';
+import Auth from './pages/Auth/Auth';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    console.log('Dispatch')
-    dispatch(getPosts())
-  },[dispatch])
-  
-  const [currentId, setCurrentId] = useState(0)
-  const classes = useStyles()
+
 
   return (
-    <Container>
-      <NavBar />
+    <Router>
       <Container>
-        <Grid container justifyContent='space-between' className={classes.gridContainer}>
-          <Grid item xs={12} sm={7}>
-            <Posts setCurrentId={setCurrentId}/>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Form currentId={currentId} setCurrentId={setCurrentId}/>
-          </Grid>
-        </Grid>
+        <NavBar />
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/auth' exact component={Auth} />
+        </Switch>
       </Container>
-    </Container>
+    </Router>
   )
 }
 

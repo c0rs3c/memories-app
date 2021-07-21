@@ -17,7 +17,7 @@ export const createPost = async (req, res) => {
     // console.log(post,"Controller")
     try {
         const post = req.body
-        const newPost = new PostModel(post)
+        const newPost = new PostModel({...post, creator: req.userId, createdAt: new Date().toISOString()})
         await newPost.save()
         res.status(200).json(newPost)
         
@@ -64,10 +64,21 @@ export const likePost = async(req,res) => {
     try {
         console.log('SERVER LIKE')
         const { id } = req.params
-        console.log(id)
+        const userId = req.userId
+        console.log('USERID', userId)
+        if (!userId) return res.json({message: 'Unauthenticated'})
+        
+        console.log('id: ', id, 'userId: ',userId)
         const post = await PostModel.findById(id)
-        console.log(post)
-        const updatedPost = await PostModel.findByIdAndUpdate(id, {likeCount: post.likeCount + 1}, {new: true})
+        // console.log(post)
+        const index = post.likes.findIndex((id) => id === userId)
+        console.log('index: ', index)
+        if(index === -1) {
+            post.likes.push(userId)
+        } else {
+            post.likes = post.likes.filter((id) => id !== userId) 
+        }
+        const updatedPost = await PostModel.findByIdAndUpdate(id, post, {new: true})
         console.log(updatedPost)
         res.status(200).json(updatedPost)
     } catch (error) {
