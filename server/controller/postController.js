@@ -10,11 +10,6 @@ export const getPosts = async (req,res) => {
 }
 
 export const createPost = async (req, res) => {
-    // console.log(req, 'All')
-    // const { title } = req.body
-    // const { selectedFile } = req.body
-    // console.log('HERE',title,selectedFile)
-    // console.log(post,"Controller")
     try {
         const post = req.body
         const newPost = new PostModel({...post, creator: req.userId, createdAt: new Date().toISOString()})
